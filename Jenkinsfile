@@ -2,23 +2,18 @@ pipeline {
     agent any
 
     tools {
-        nodejs "NodeJS"
+        nodejs "NodeJS" // Ensure this matches the name configured in Jenkins
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
         stage('Run Server') {
             steps {
-                sh 'node server.js &'
+                bat 'node index.js'
             }
         }
     }
