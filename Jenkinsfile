@@ -11,6 +11,11 @@ pipeline {
                 bat 'npm install'
             }
         }
+    stage('Run Jest Tests') {
+            steps {
+                 bat 'npm test'
+            }
+        }
         stage('Run Server') {
             steps {
                 bat 'node server.js' // Adjust path to point to the correct location
