@@ -11,11 +11,6 @@ pipeline {
                 bat 'npm install'
             }
         }
-        stage('Build') {
-            steps {
-                bat 'npm run build' // Add this if your project requires a build step
-            }
-        }
         stage('Run Server') {
             steps {
                 bat 'node public/index.js' // Adjust path to point to the correct location
