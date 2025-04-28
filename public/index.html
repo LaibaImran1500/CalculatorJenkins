@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Calculator with Backend</title>
+  <style>
+    body { font-family: Arial; margin: 2rem; }
+    .calculator { width: 300px; margin: auto; }
+    input, select, button { width: 100%; margin: 0.5rem 0; padding: 0.5rem; }
+    #result { margin-top: 1rem; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h2>Backend Calculator</h2>
+    <input id="num1" type="number" placeholder="Enter first number" />
+    <input id="num2" type="number" placeholder="Enter second number" />
+    <select id="operator">
+      <option value="+">+</option>
+      <option value="-">−</option>
+    </select>
+    <button id="calcBtn">Calculate</button>
+    <div id="result">Result will appear here</div>
+  </div>
+
+  <script>
+    document.getElementById('calcBtn').addEventListener('click', async () => {
+      const num1 = Number(document.getElementById('num1').value);
+      const num2 = Number(document.getElementById('num2').value);
+      const operator = document.getElementById('operator').value;
+
+      const response = await fetch('/calculate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ num1, num2, operator })
+      });
+
+      const data = await response.json();
+      
+      if (data.error) {
+        document.getElementById('result').textContent = `Error: ${data.error}`;
+      } else {
+        document.getElementById('result').textContent = `Result: ${data.result}`;
+      }
+    });
+  </script>
+</body>
+</html>
